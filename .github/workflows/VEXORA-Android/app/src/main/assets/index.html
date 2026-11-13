@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEXORA VPN</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg: #070909;
+            --panel: #101414;
+            --panel2: #151b1a;
+            --line: #252d2b;
+            --muted: #82908b;
+            --white: #f4f8f6;
+            --green: #b8ff55;
+            --green2: #7de52b
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(ellipse at 50% -20%, #1d2a20 0%, #090d0c 45%, #060808 100%);
+            color: var(--white);
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            min-height: 100vh
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+            color: inherit
+        }
+
+        .app {
+            max-width: 1100px;
+            margin: auto;
+            padding: 28px 26px 40px
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 36px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            direction: ltr
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #49633b;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            color: var(--green);
+            font-size: 23px;
+            font-weight: 900;
+            box-shadow: 0 0 25px #aaff5518
+        }
+
+        .brandname {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 3px
+        }
+
+        .brandname span {
+            color: var(--green)
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #9ba8a2;
+            font-size: 12px;
+            background: #111716;
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            padding: 9px 14px
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #77817d
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.25fr .75fr;
+            gap: 20px
+        }
+
+        .panel {
+            background: linear-gradient(145deg, #131918, #0d1211);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: 0 20px 60px #0005
+        }
+
+        .hero {
+            text-align: center;
+            min-height: 540px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero:before {
+            content: "";
+            position: absolute;
+            width: 370px;
+            height: 370px;
+            border-radius: 50%;
+            background: #aaff550b;
+            filter: blur(65px);
+            top: 90px;
+            pointer-events: none
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 2px;
+            direction: ltr
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            margin: 12px 0 5px;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 0 0 30px
+        }
+
+        .orb {
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            border: 1px solid #39453d;
+            background: radial-gradient(circle at 50% 45%, #283526, #111714 68%);
+            box-shadow: 0 0 0 12px #b8ff5508, 0 0 70px #9eff3214;
+            position: relative;
+            margin-bottom: 28px
+        }
+
+        .orb:after {
+            content: "";
+            position: absolute;
+            inset: 13px;
+            border: 1px solid #b8ff5525;
+            border-radius: 50%
+        }
+
+        .power {
+            width: 118px;
+            height: 118px;
+            border-radius: 50%;
+            border: 1px solid #b8ff5570;
+            background: linear-gradient(145deg, #c8ff79, #8bdc37);
+            color: #10160b;
+            font-size: 39px;
+            box-shadow: 0 0 35px #aaff5535;
+            transition: .25s
+        }
+
+        .power:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 55px #aaff5570
+        }
+
+        .power.connected {
+            background: linear-gradient(145deg, #fff, #b9c7bd);
+            border-color: #fff
+        }
+
+        .conntext {
+            font-size: 15px;
+            font-weight: 700
+        }
+
+        .connsub {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 5px
+        }
+
+        .stats {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 430px
+        }
+
+        .stat {
+            flex: 1;
+            background: #0c1110;
+            border: 1px solid #202927;
+            border-radius: 13px;
+            padding: 12px
+        }
+
+        .stat b {
+            display: block;
+            font-size: 15px;
+            direction: ltr
+        }
+
+        .stat small {
+            color: var(--muted);
+            font-size: 10px
+        }
+
+        .side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px
+        }
+
+        .sectionhead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px
+        }
+
+        .sectionhead h3 {
+            font-size: 15px;
+            margin: 0
+        }
+
+        .tiny {
+            font-size: 10px;
+            color: var(--muted)
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #0c1110;
+            border: 1px solid #26302c;
+            border-radius: 15px;
+            padding: 13px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: .2s
+        }
+
+        .location:hover,
+        .location.selected {
+            border-color: #8acb4d;
+            background: #141d13
+        }
+
+        .flag {
+            font-size: 24px;
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: #1b2420;
+            display: grid;
+            place-items: center
+        }
+
+        .locinfo {
+            flex: 1
+        }
+
+        .locinfo b {
+            display: block;
+            font-size: 12px
+        }
+
+        .locinfo small {
+            color: var(--muted);
+            font-size: 10px
+        }
+
+        .ping {
+            font-size: 11px;
+            color: var(--green);
+            direction: ltr
+        }
+
+        .check {
+            color: var(--green);
+            font-size: 17px
+        }
+
+        .setting {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 0;
+            border-bottom: 1px solid #202725
+        }
+
+        .setting:last-child {
+            border: 0
+        }
+
+        .setting b {
+            font-size: 12px;
+            display: block
+        }
+
+        .setting small {
+            font-size: 10px;
+            color: var(--muted)
+        }
+
+        .switch {
+            width: 39px;
+            height: 22px;
+            border-radius: 20px;
+            background: #303a35;
+            position: relative;
+            border: 0
+        }
+
+        .switch:after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 3px;
+            right: 3px;
+            background: #aab4ae;
+            border-radius: 50%;
+            transition: .2s
+        }
+
+        .switch.on {
+            background: #8bdc37
+        }
+
+        .switch.on:after {
+            right: 20px;
+            background: #10160b
+        }
+
+        .protocol {
+            background: #0b100f;
+            border: 1px solid #27312d;
+            color: #eaf0ec;
+            border-radius: 10px;
+            padding: 7px 10px;
+            font-size: 11px
+        }
+
+        .footer {
+            text-align: center;
+            color: #53605a;
+            font-size: 10px;
+            margin-top: 22px;
+            direction: ltr
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%) translateY(90px);
+            background: #d7ffae;
+            color: #14200d;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: .3s;
+            box-shadow: 0 8px 30px #0008;
+            z-index: 5
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0)
+        }
+
+        @media(max-width:760px) {
+            .app {
+                padding: 20px 14px
+            }
+
+            .layout {
+                grid-template-columns: 1fr
+            }
+
+            .top {
+                margin-bottom: 22px
+            }
+
+            .hero {
+                min-height: 490px
+            }
+
+            .panel {
+                padding: 21px
+            }
+
+            .brandname {
+                font-size: 17px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <header class="top">
+            <div class="brand">
+                <div class="logo">V</div>
+                <div class="brandname">VEXORA<span>.</span></div>
+            </div>
+            <div class="status"><i class="dot" id="topDot"></i><span id="topStatus">آماده اتصال</span></div>
+        </header>
+        <main class="layout">
+            <section class="panel hero">
+                <div class="eyebrow">PRIVATE CONNECTION • NEXT GENERATION</div>
+                <h1>اتصال امن، بدون مرز</h1>
+                <p class="sub">حریم خصوصی خودت رو در اولویت قرار بده.</p>
+                <div class="orb"><button class="power" id="power" aria-label="اتصال">⏻</button></div>
+                <div class="conntext" id="connText">هنوز متصل نشدی</div>
+                <div class="connsub" id="connSub">برای شروع، دکمه اتصال را بزن</div>
+                <div class="stats">
+                    <div class="stat"><b id="ip">•••.•••.•••</b><small>IP ADDRESS</small></div>
+                    <div class="stat"><b id="duration">00:00:00</b><small>SESSION TIME</small></div>
+                    <div class="stat"><b id="traffic">0 KB</b><small>DATA USED</small></div>
+                </div>
+            </section>
+            <aside class="side">
+                <section class="panel">
+                    <div class="sectionhead">
+                        <h3>موقعیت سرور</h3><span class="tiny">SERVER LOCATION</span>
+                    </div>
+                    <div class="location selected" data-country="آلمان" data-flag="🇩🇪">
+                        <div class="flag">🇩🇪</div>
+                        <div class="locinfo"><b>آلمان</b><small>فرانکفورت</small></div><span class="ping">24
+                            ms</span><span class="check">✓</span>
+                    </div>
+                    <div class="location" data-country="هلند" data-flag="🇳🇱">
+                        <div class="flag">🇳🇱</div>
+                        <div class="locinfo"><b>هلند</b><small>آمستردام</small></div><span class="ping">31
+                            ms</span><span class="check"></span>
+                    </div>
+                    <div class="location" data-country="سوئیس" data-flag="🇨🇭">
+                        <div class="flag">🇨🇭</div>
+                        <div class="locinfo"><b>سوئیس</b><small>زوریخ</small></div><span class="ping">38 ms</span><span
+                            class="check"></span>
+                    </div>
+                    <div class="location" data-country="انگلستان" data-flag="🇬🇧">
+                        <div class="flag">🇬🇧</div>
+                        <div class="locinfo"><b>انگلستان</b><small>لندن</small></div><span class="ping">46
+                            ms</span><span class="check"></span>
+                    </div>
+                </section>
+                <section class="panel">
+                    <div class="sectionhead">
+                        <h3>تنظیمات سریع</h3><span class="tiny">PREFERENCES</span>
+                    </div>
+                    <div class="setting">
+                        <div><b>اتصال خودکار</b><small>اتصال هنگام باز شدن برنامه</small></div><button class="switch on"
+                            aria-label="اتصال خودکار"></button>
+                    </div>
+                    <div class="setting">
+                        <div><b>Kill Switch</b><small>قطع اینترنت هنگام قطع VPN</small></div><button class="switch"
+                            aria-label="Kill Switch"></button>
+                    </div>
+                    <div class="setting">
+                        <div><b>پروتکل اتصال</b><small>روش ارتباط امن</small></div><select class="protocol"
+                            id="protocol">
+                            <option>Auto</option>
+                            <option>WireGuard</option>
+                            <option>OpenVPN</option>
+                            <option>IKEv2</option>
+                        </select>
+                    </div>
+                </section>
+            </aside>
+        </main>
+        <div class="footer">نکته: این فیلترشکن در حال حاضر امکان متصل شدن به سرور را ندارد . بعد از وصل شدن اطلاع رسانی
+            میشود</div>
+        <div class="footer">VEXORA VPN • DESIGNED FOR PRIVACY • UI PREVIEW 1.0</div>
+        <div class="footer">VEXORA VPN • Desinged & Developed by TaHa </div>
+    </div>
+    <div class="toast" id="toast">این نسخه نمایشی است؛ هنوز سرور VPN متصل نشده.</div>
+    <script>
+        let connected = false, selected = 'آلمان', seconds = 0, ticker = null;
+        const $ = id => document.getElementById(id);
+        function toast(msg) { $('toast').textContent = msg; $('toast').classList.add('show'); setTimeout(() => $('toast').classList.remove('show'), 2600) }
+        $('power').addEventListener('click', () => {
+            connected = !connected;
+            $('power').classList.toggle('connected', connected);
+            $('connText').textContent = connected ? 'در حال اتصال نمایشی' : 'هنوز متصل نشدی';
+            $('connSub').textContent = connected ? 'این فقط تغییر وضعیت رابط کاربری است' : 'برای شروع، دکمه اتصال را بزن';
+            $('topStatus').textContent = connected ? 'در حال اتصال' : 'آماده اتصال';
+            $('topDot').style.background = connected ? '#b8ff55' : '#77817d';
+            if (connected) { seconds = 0; ticker = setInterval(() => { seconds++; let h = String(Math.floor(seconds / 3600)).padStart(2, '0'), m = String(Math.floor(seconds % 3600 / 60)).padStart(2, '0'), s = String(seconds % 60).padStart(2, '0'); $('duration').textContent = `${h}:${m}:${s}` }, 1000); toast('حالت نمایشی فعال شد؛ اتصال واقعی برقرار نیست.') }
+            else { clearInterval(ticker); $('duration').textContent = '00:00:00'; $('ip').textContent = '•••.•••.•••'; toast('اتصال نمایشی متوقف شد.') }
+        });
+        document.querySelectorAll('.location').forEach(el => el.addEventListener('click', () => {
+            document.querySelectorAll('.location').forEach(x => { x.classList.remove('selected'); x.querySelector('.check').textContent = '' });
+            el.classList.add('selected'); el.querySelector('.check').textContent = '✓'; selected = el.dataset.country; toast('موقعیت انتخاب شد: ' + selected);
+        }));
+        document.querySelectorAll('.switch').forEach(btn => btn.addEventListener('click', () => { btn.classList.toggle('on'); toast('تنظیم نمایشی به‌روزرسانی شد.') }));
+        $('protocol').addEventListener('change', e => toast('پروتکل انتخابی: ' + e.target.value));
+    </script>
+</body>
+
+</html>
